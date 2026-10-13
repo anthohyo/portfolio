@@ -1,0 +1,388 @@
+<title>Portfolio Anthony Bayard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one long page set like a match sheet. Big condensed name with a small portrait, then three
+   project sheets (screenshot left, "fiche" of real scope and status right), then profile and contact. */
+:root {
+  --bg: #EDF0F2;
+  --surface: #FFFFFF;
+  --ink: #0F1A24;
+  --muted: #55616D;
+  --line: #CBD3DA;
+  --accent: #1D5560;
+  --accent-ink: #FFFFFF;
+  --mark: #B8861F;
+  --shadow: rgba(15, 26, 36, 0.30);
+  --font-display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1218;
+    --surface: #131C25;
+    --ink: #E8EDF2;
+    --muted: #93A0AD;
+    --line: #27323D;
+    --accent: #6FBBC6;
+    --accent-ink: #0B1218;
+    --mark: #E2B04A;
+    --shadow: rgba(0, 0, 0, 0.55);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1218;
+  --surface: #131C25;
+  --ink: #E8EDF2;
+  --muted: #93A0AD;
+  --line: #27323D;
+  --accent: #6FBBC6;
+  --accent-ink: #0B1218;
+  --mark: #E2B04A;
+  --shadow: rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: 1.25rem; }
+
+/* top bar */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+.top nav { display: flex; gap: 1.5rem; }
+.top nav a { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* hero */
+.hero { padding-block: clamp(2.5rem, 7vw, 5rem) 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 1rem; }
+h1 {
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(3.75rem, 14vw, 9.5rem); line-height: 0.88; letter-spacing: 0.005em;
+  margin: 0;
+}
+.name-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.25rem; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+.portrait { margin: 0; flex: 0 0 auto; width: clamp(92px, 17vw, 210px); }
+.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: start; }
+.lead { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 4.5vw, 2.75rem); line-height: 1.05; margin: 0 0 1rem; text-wrap: balance; }
+.sub { max-width: 58ch; color: var(--muted); margin: 0; font-size: 1.0625rem; }
+.toc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.toc a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+.toc .t { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.toc .d { font-size: 0.875rem; color: var(--muted); text-align: right; }
+.toc a:hover .t { color: var(--accent); }
+
+/* sections */
+section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 1.5rem clamp(1.5rem, 5vw, 4rem); align-items: end; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: clamp(2.25rem, 6vw, 3.5rem); line-height: 0.95; letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+.sec-head p { margin: 0; color: var(--muted); max-width: 56ch; }
+
+/* project sheets */
+.project { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 5vw, 4rem); padding-block: clamp(2rem, 5vw, 3.5rem); border-top: 1px solid var(--ink); align-items: start; }
+.project:last-of-type { border-bottom: 1px solid var(--line); }
+.shot { margin: 0; }
+.shot .frame { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: 0 24px 40px -28px var(--shadow); }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; color: var(--muted); margin-top: 0.75rem; }
+.kicker { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
+h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2.75rem, 7vw, 4.5rem); line-height: 0.9; letter-spacing: 0.005em; margin: 0 0 0.75rem; }
+.tagline { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 2.5vw, 1.625rem); line-height: 1.2; margin: 0 0 1.25rem; text-wrap: balance; }
+.project p.txt { max-width: 62ch; margin: 0 0 1rem; }
+.project p.txt.muted { color: var(--muted); }
+.fiche { margin: 1.75rem 0 1.5rem; border-top: 1px solid var(--line); }
+.fiche .row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+.fiche dt { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.2rem; }
+.fiche dd { margin: 0; font-size: 0.9375rem; }
+.fiche dd strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.9375rem; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 4px; }
+.btn:hover { filter: brightness(1.08); }
+
+/* profile */
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+.cols h3.small { font-size: 1.5rem; line-height: 1; margin: 0 0 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--ink); }
+.cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.cols li { font-size: 0.9375rem; }
+.cols li small { display: block; color: var(--muted); font-size: 0.8125rem; }
+.group-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 1.25rem 0 0.6rem; }
+h3.small + .group-label { margin-top: 0; }
+a.ext { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--accent); }
+a.ext::after { content: "\00a0\2197"; font-size: 0.8em; color: var(--accent); }
+a.ext:hover { color: var(--accent); }
+.txt a { text-underline-offset: 3px; }
+
+.bring { margin-top: clamp(2.5rem, 6vw, 4rem); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 1.5rem clamp(1.5rem, 5vw, 4rem); align-items: start; padding-top: clamp(1.5rem, 4vw, 2.5rem); border-top: 1px solid var(--ink); }
+.bring .item { padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+.bring .item:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
+.bring .item .label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.4rem; }
+.bring .item p.body { margin: 0; max-width: 60ch; font-size: 1.0625rem; }
+
+/* contact */
+#contact { background: var(--surface); border-top: 1px solid var(--line); }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 1.5rem clamp(1.5rem, 5vw, 4rem); align-items: start; }
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+.mail code { font-family: var(--font-mono); font-size: 1rem; background: var(--bg); border: 1px solid var(--line); padding: 0.6rem 0.85rem; border-radius: 4px; user-select: all; overflow-wrap: anywhere; }
+.mail button { font: inherit; font-weight: 600; font-size: 0.9375rem; cursor: pointer; background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1rem; border-radius: 4px; }
+.mail button:hover { background: var(--ink); color: var(--bg); }
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.links a { text-underline-offset: 4px; }
+.links span { color: var(--muted); }
+footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); background: var(--surface); }
+
+@media (max-width: 860px) {
+  .hero-grid, .sec-head, .project, .bring, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr); }
+  .shot { max-width: 440px; }
+}
+@media (max-width: 480px) {
+  .fiche .row { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+  .top nav { gap: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Anthony Bayard</a>
+    <nav aria-label="Navigation">
+      <a href="#projets">Projets</a>
+      <a href="#profil">Profil</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Portfolio · octobre 2026</p>
+      <div class="name-row">
+        <h1>Anthony<br>Bayard</h1>
+        <figure class="portrait"><img src="{{IMG_ME}}" width="400" height="400" alt="Anthony Bayard, un appareil photo en main dans une salle de sport"></figure>
+      </div>
+      <div class="hero-grid">
+        <div>
+          <p class="lead">Je construis mes idées.</p>
+          <p class="sub">Étudiant en 4<sup>e</sup> année de communication à l'EFAP, en cursus Full English. J'ai commencé par un an de développement web à Epitech, et depuis je fabrique mes propres projets : une appli, un site, un outil de données. Les trois sont en ligne.</p>
+        </div>
+        <ul class="toc" aria-label="Les trois projets">
+          <li><a href="#kichtapp"><span class="t">KichtApp</span><span class="d">Aides pour les jeunes qui partent vivre seuls</span></a></li>
+          <li><a href="#vista"><span class="t">Vista</span><span class="d">Financement d'athlètes</span></a></li>
+          <li><a href="#vbdatabox"><span class="t">VB Databox</span><span class="d">Statistiques de volley</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projets" style="padding-top:clamp(3rem,7vw,5.5rem)">
+      <div class="sec-head">
+        <h2>Mes projets</h2>
+        <p>Du plus abouti au plus récent. Pour chacun, je dis où il en est. Les sites sont ouverts, vous pouvez cliquer dessus.</p>
+      </div>
+
+      <!-- KICHTAPP -->
+      <article class="project" id="kichtapp">
+        <figure class="shot">
+          <div class="frame"><img src="{{IMG_KICHT}}" width="720" height="1164" alt="Écran d'accueil de KichtApp avec un profil d'exemple : « Il te reste 150 € ce mois-ci », la première priorité « vérifie ton APL » et la liste « Premier mois »"></div>
+          <figcaption>Écran d'accueil, avec un profil d'exemple : Léa, 20 ans, étudiante à Lyon.</figcaption>
+        </figure>
+        <div>
+          <p class="kicker">Application · en finalisation</p>
+          <h3>KichtApp</h3>
+          <p class="tagline">Les aides auxquelles on a droit quand on part vivre seul.</p>
+          <p class="txt">Quand on quitte le domicile familial, on passe souvent à côté d'aides sans le savoir. KichtApp pose quatre questions, puis montre les aides possibles (APL, bourse CROUS, prime d'activité, Visale) et les démarches à faire, dans l'ordre. Pas de compte à créer, et les données restent sur le téléphone.</p>
+          <p class="txt">Il y a aussi Le Parrain, un assistant IA à qui on peut poser ses questions sur les impôts, la fiche de paie, le premier appartement ou le contrat de travail.</p>
+          <p class="txt muted">L'appli est pensée pour les étudiants, et elle part d'un constat : à la rentrée 2023, 17 % des étudiants interrogés par l'Observatoire de la vie étudiante disaient avoir besoin d'une aide alimentaire sans l'avoir demandée (<a href="https://diplomeo.com/actualite-vie_etudiante_difficultes_besoins" target="_blank" rel="noopener noreferrer">source</a>).</p>
+          <dl class="fiche">
+            <div class="row"><dt>Rôle</dt><dd>L'idée, les écrans, le code, la mise en ligne</dd></div>
+            <div class="row"><dt>Outils</dt><dd>Expo (React Native), API Claude, Netlify</dd></div>
+            <div class="row"><dt>Chiffres</dt><dd><strong>4</strong> questions · <strong>2</strong> minutes · <strong>0</strong> compte à créer</dd></div>
+            <div class="row"><dt>Où ça en est</dt><dd>La version web est en ligne et je la finalise. Elle n'est pas encore sur les stores.</dd></div>
+          </dl>
+          <a class="btn" href="https://kichtappv2.netlify.app/" target="_blank" rel="noopener noreferrer">Ouvrir KichtApp <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <!-- VISTA -->
+      <article class="project" id="vista">
+        <figure class="shot">
+          <div class="frame"><img src="{{IMG_VISTA}}" width="800" height="1000" alt="Page d'accueil de Vista : « Tu joues. Je démarche. » sur une photo d'un joueur de volley en pleine attaque"></div>
+          <figcaption>Page d'accueil : 6 mois, gratuits, rien à signer.</figcaption>
+        </figure>
+        <div>
+          <p class="kicker">Site web · en ligne</p>
+          <h3>Vista</h3>
+          <p class="tagline">Chercher à la place des athlètes les financements qu'ils n'ont pas le temps d'aller chercher.</p>
+          <p class="txt">Beaucoup d'athlètes paient leur saison eux-mêmes, ou leurs parents. L'argent existe (aides de la région, partenariats d'entreprise, frais pris en charge), mais personne n'a le temps d'aller le chercher. Vista propose de le faire à leur place, gratuitement pour les cinq premiers athlètes.</p>
+          <p class="txt">Le site explique l'offre aux athlètes et à leurs parents : six livrables sur six mois, deux exemples de documents, d'où vient l'argent avec des ordres de grandeur sourcés (Admical, Agence nationale du Sport), ce que je ne fais pas, et une FAQ.</p>
+          <p class="txt muted">Le site dit aussi que l'objectif de 8 000 à 12 000 € sur une première saison est un objectif de travail, pas une promesse.</p>
+          <dl class="fiche">
+            <div class="row"><dt>Rôle</dt><dd>L'idée, l'offre, la rédaction, le site, le suivi des visites</dd></div>
+            <div class="row"><dt>Outils</dt><dd>Netlify, Google Analytics 4</dd></div>
+            <div class="row"><dt>Mesure</dt><dd>Google Analytics 4 est installé, avec <strong>6</strong> évènements suivis : clic sur le mail, WhatsApp, Instagram, le portfolio, les exemples de documents, et envoi du formulaire.</dd></div>
+            <div class="row"><dt>Où ça en est</dt><dd>Le site est en ligne. Je commence avec cinq athlètes au maximum, que je contacte moi-même, et l'objectif est d'en accompagner davantage ensuite.</dd></div>
+          </dl>
+          <a class="btn" href="https://vista-athletes.netlify.app/" target="_blank" rel="noopener noreferrer">Ouvrir Vista <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <!-- VB DATABOX -->
+      <article class="project" id="vbdatabox">
+        <figure class="shot">
+          <div class="frame"><img src="{{IMG_VB}}" width="800" height="1780" alt="Fiche d'un joueur sur VB Databox : rang à son poste, six barres de centiles du rouge au vert, puis un graphique en polygone qui compare deux réceptionneurs-attaquants de Ligue A masculine"></div>
+          <figcaption>Fiche d'un réceptionneur-attaquant de Ligue A masculine (2025-26), comparé à un autre joueur : barres de centiles et polygone.</figcaption>
+        </figure>
+        <div>
+          <p class="kicker">Données · en ligne, en cours</p>
+          <h3>VB Databox</h3>
+          <p class="tagline">Comparer un joueur de volley aux autres joueurs de son poste.</p>
+          <p class="txt">Chaque fiche donne le rang du joueur à son poste, puis des barres de centiles, du rouge au vert (50, c'est le joueur médian). Pour les attaquants, un polygone sur six indicateurs permet de comparer deux joueurs, même d'un championnat à l'autre. Le site montre aussi les profils les plus proches, la trajectoire d'un joueur sur plusieurs saisons, et un classement qu'on peut filtrer.</p>
+          <p class="txt muted">Je suis parti de Data'Scout, un site de statistiques de football, et j'ai refait l'idée pour le volley. Le parti pris : montrer un rang (« 1er sur 39 ») plutôt qu'un pourcentage que seuls les initiés comprennent.</p>
+          <dl class="fiche">
+            <div class="row"><dt>Rôle</dt><dd>L'idée, la collecte des données (scraping), le calcul des centiles, le site</dd></div>
+            <div class="row"><dt>Outils</dt><dd>JavaScript, Chart.js, Netlify</dd></div>
+            <div class="row"><dt>Chiffres</dt><dd><strong>735</strong> fiches joueur-saison · <strong>3</strong> championnats · <strong>3</strong> saisons · <strong>145</strong> joueurs suivis sur plusieurs saisons</dd></div>
+            <div class="row"><dt>Périmètre</dt><dd>Ligue A masculine, Ligue A féminine et Bundesliga masculine, saisons 2023-24 à 2025-26. Joueurs ayant joué au moins 40 sets, et 100 réceptions pour les liberos.</dd></div>
+            <div class="row"><dt>Où ça en est</dt><dd>Le site est en ligne et je continue de l'améliorer : il est passé d'une saison à trois, et d'une fiche à un classement.</dd></div>
+            <div class="row"><dt>Limite</dt><dd>Aucune donnée de passe n'est publiée : les passeurs ne sont mesurés que sur le contre et le service, sans classement. La saison 2026-27 n'est pas incluse, et les tailles (Wikidata) ne couvrent qu'une partie des joueurs.</dd></div>
+          </dl>
+          <a class="btn" href="https://vbdatabox.netlify.app/" target="_blank" rel="noopener noreferrer">Ouvrir VB Databox <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <section id="profil" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Profil</h2>
+        <p>De la communication, de l'analyse, une base technique, et l'habitude d'aller jusqu'à la mise en ligne.</p>
+      </div>
+      <div class="cols">
+        <div>
+          <h3 class="small">Compétences</h3>
+          <p class="group-label">Tech et IA</p>
+          <ul>
+            <li>Vibe coding</li>
+            <li>Prompt</li>
+            <li>Collecte de données (scraping)</li>
+            <li>Analyse de données</li>
+          </ul>
+          <p class="group-label">Marketing</p>
+          <ul>
+            <li>Google Analytics 4</li>
+            <li>Analyse de cible et personas</li>
+            <li>Réseaux sociaux</li>
+            <li>Présentation orale</li>
+          </ul>
+          <p class="group-label">Création et langues</p>
+          <ul>
+            <li>Photo et vidéo de sport</li>
+            <li>Premiere Pro, Photoshop, Canva</li>
+            <li>Anglais : B2, cursus Full English</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="small">Expérience</h3>
+          <ul>
+            <li><a class="ext" href="https://parisvolley.com/" target="_blank" rel="noopener noreferrer">Stage communication, Paris Volley</a><small>Février à mars 2025</small></li>
+            <li><a class="ext" href="https://montpellierbeachvolley.fr" target="_blank" rel="noopener noreferrer">Stage communication, Montpellier Beach Volley</a><small>Décembre 2024 à janvier 2025, et mai à juin 2024</small></li>
+            <li><a class="ext" href="https://www.youtube.com/watch?v=tjF8kDeyLzU" target="_blank" rel="noopener noreferrer">Cadreur vidéo, LVF Camp</a><small>Août 2024, tournage pour le youtubeur <a class="ext" href="https://www.youtube.com/@levolleyeurfrancais" target="_blank" rel="noopener noreferrer">Le Volleyeur Français</a></small></li>
+            <li>Volontaire aux Jeux de Paris 2024<small>Service Team Member : accompagnement des athlètes, animation d'initiation au volley et au beach-volley</small></li>
+            <li>Monteur vidéo<small>Avril à juin 2024</small></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="small">Formation</h3>
+          <ul>
+            <li>EFAP, 4<sup>e</sup> année<small>Cursus Full English à Paris, puis Erasmus à Budapest de février à juin 2027</small></li>
+            <li><a class="ext" href="https://www.handong.edu/" target="_blank" rel="noopener noreferrer">Échange à Handong Global University</a><small>Un semestre pendant ma 3<sup>e</sup> année, à Pohang (Corée du Sud)</small></li>
+            <li>Epitech Digital School, Lyon<small>2022-2023, développement web</small></li>
+          </ul>
+          <p class="group-label">Certifications</p>
+          <ul>
+            <li><a class="ext" href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank" rel="noopener noreferrer">AI Fluency</a><small>Anthropic, 2026</small></li>
+            <li><a class="ext" href="https://anthropic.skilljar.com/claude-101" target="_blank" rel="noopener noreferrer">Claude 101</a><small>Anthropic, mars 2026</small></li>
+            <li><a class="ext" href="https://doyouspeakinetum.com/course/index.php?categoryid=8" target="_blank" rel="noopener noreferrer">« Do you speak GenAI ? »</a><small>Inetum, 2024</small></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bring">
+        <h2 style="font-size:clamp(2rem,5vw,3rem)">Travailler avec moi</h2>
+        <div>
+          <div class="item">
+            <p class="label">En équipe</p>
+            <p class="body">En groupe, j'aime commencer par comprendre la cible : qui sont les gens, ce qu'ils veulent, ce que disent les données et les personas. Ensuite je prends souvent la partie produit : un prototype qu'on peut cliquer, ce qui rentre dans le temps qu'on a, et la démo.</p>
+          </div>
+          <div class="item">
+            <p class="label">En alternance</p>
+            <p class="body">Je cherche une alternance de 12 mois à partir d'octobre 2027, pour le MBA Digital Marketing &amp; Business IA &amp; Data de l'EFAP. L'acquisition, le growth et le CRM m'attirent, mais je ne me limite pas à ces offres : j'aime découvrir des secteurs et je suis ouvert à des projets très différents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <h2>Me contacter</h2>
+      <div>
+        <div class="mail">
+          <code id="mail-text">anthony.bayard69@gmail.com</code>
+          <button type="button" id="copy-mail">Copier l'adresse</button>
+          <span id="copy-status" role="status" aria-live="polite" style="font-size:0.875rem;color:var(--muted)"></span>
+        </div>
+        <ul class="links">
+          <li><span>Instagram, photo et vidéo de sport :</span> <a href="https://www.instagram.com/antho.frame" target="_blank" rel="noopener noreferrer">@antho.frame</a></li>
+          <li><span>Portfolio photo et vidéo :</span> <a href="https://drive.google.com/drive/folders/1-1MOgaS5wkp8iULchm4IUM51iAxcwn1A?usp=sharing" target="_blank" rel="noopener noreferrer">dossier Google Drive</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Anthony Bayard · Portfolio · 2026</div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-mail');
+  var txt = document.getElementById('mail-text');
+  var status = document.getElementById('copy-status');
+  function selectText() {
+    try {
+      var r = document.createRange();
+      r.selectNodeContents(txt);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    } catch (e) {}
+  }
+  btn.addEventListener('click', function () {
+    var value = txt.textContent.trim();
+    var done = function () { status.textContent = 'Adresse copiée'; };
+    var fail = function () { selectText(); status.textContent = 'Adresse sélectionnée, copiez-la avec Ctrl+C'; };
+    try {
+      navigator.clipboard.writeText(value).then(done, fail);
+    } catch (e) { fail(); }
+  });
+})();
+</script>
