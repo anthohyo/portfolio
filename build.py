@@ -1,7 +1,7 @@
-"""Régénère index.html à partir de src/template.html + src/img/*.webp.
+"""Régénère public/index.html à partir de src/template.html + src/img/*.webp.
 
 Usage : python3 build.py
-Le résultat (index.html, à la racine) est une page autonome : les images sont
+Le résultat (public/index.html) est une page autonome : les images sont
 intégrées en base64, il n'y a rien d'autre à héberger.
 """
 import base64
@@ -40,5 +40,6 @@ marker = '<header class="top">'
 head, body = html.split(marker, 1)
 out = HEAD_OPEN + head.rstrip() + "\n</head>\n<body>\n" + marker + body.rstrip("\n") + "\n</body>\n</html>\n"
 
-(ROOT / "index.html").write_text(out, encoding="utf-8")
-print(f"index.html écrit ({len(out) // 1024} Ko)")
+(ROOT / "public").mkdir(exist_ok=True)
+(ROOT / "public" / "index.html").write_text(out, encoding="utf-8")
+print(f"public/index.html écrit ({len(out) // 1024} Ko)")
