@@ -107,6 +107,18 @@ h2 { font-family: var(--font-display); font-weight: 600; text-transform: upperca
 /* project sheets */
 .project { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 5vw, 4rem); padding-block: clamp(2rem, 5vw, 3.5rem); border-top: 1px solid var(--ink); align-items: start; }
 .project:last-of-type { border-bottom: 1px solid var(--line); }
+/* hover (ordinateur seulement) : la fiche se soulève avec une lueur violette,
+   la capture zoome doucement et le titre glisse. Transform et opacity seulement. */
+.project { position: relative; isolation: isolate; transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.project::before { content: ""; position: absolute; inset: -1.25rem -1.5rem; border-radius: 20px; background: radial-gradient(60% 60% at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 72%); opacity: 0; transition: opacity 0.6s ease; z-index: -1; pointer-events: none; }
+.project .shot img { transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.project h3 { transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .project:hover { transform: translateY(-6px); }
+  .project:hover::before { opacity: 1; }
+  .project:hover .shot img { transform: scale(1.05); }
+  .project:hover h3 { transform: translateX(8px); }
+}
 .shot { margin: 0; }
 .shot .frame { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: 0 24px 40px -28px var(--shadow); }
 .shot img { display: block; width: 100%; height: auto; }
@@ -164,7 +176,12 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
   .fiche .row { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
   .top nav { gap: 1rem; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .project, .project::before, .project .shot img, .project h3 { transition: none !important; }
+  .project:hover, .project:hover .shot img, .project:hover h3 { transform: none !important; }
+  .project:hover::before { opacity: 0 !important; }
+}
 </style>
 </head>
 <body>
