@@ -110,6 +110,15 @@ h2 { font-family: var(--font-display); font-weight: 600; text-transform: upperca
   .project:hover .shot img { transform: scale(1.05); }
   .project:hover h3 { transform: translateX(8px); }
 }
+/* scroll : apparition des fiches (translate, pour ne pas gêner le transform du survol) */
+.js .project.reveal { opacity: 0; translate: 0 24px; transition: opacity 0.8s ease, translate 0.8s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.js .project.reveal.in { opacity: 1; translate: 0 0; }
+/* scroll : la capture reste en place pendant que la description défile (ordinateur) */
+@media (min-width: 861px) {
+  .project .shot { align-self: stretch; }
+  .project .shot .frame { position: sticky; top: 6rem; }
+  .project > div:last-child { padding-bottom: 40vh; }
+}
 .shot { margin: 0; }
 .shot .frame { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: 0 24px 40px -28px var(--shadow); }
 .shot img { display: block; width: 100%; height: auto; }
@@ -172,6 +181,7 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
   .project, .project::before, .project .shot img, .project h3 { transition: none !important; }
   .project:hover, .project:hover .shot img, .project:hover h3 { transform: none !important; }
   .project:hover::before { opacity: 0 !important; }
+  .js .project.reveal { opacity: 1 !important; translate: none !important; transition: none !important; }
 }
 </style>
 
@@ -214,7 +224,7 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
       </div>
 
       <!-- KICHTAPP -->
-      <article class="project" id="kichtapp">
+      <article class="project reveal" id="kichtapp">
         <figure class="shot">
           <div class="frame"><img src="{{IMG_KICHT}}" width="720" height="1164" alt="Écran d'accueil de KichtApp avec un profil d'exemple : « Il te reste 150 € ce mois-ci », la première priorité « vérifie ton APL » et la liste « Premier mois »"></div>
           <figcaption>Écran d'accueil, avec un profil d'exemple : Léa, 20 ans, étudiante à Lyon.</figcaption>
@@ -237,7 +247,7 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
       </article>
 
       <!-- VISTA -->
-      <article class="project" id="vista">
+      <article class="project reveal" id="vista">
         <figure class="shot">
           <div class="frame"><img src="{{IMG_VISTA}}" width="800" height="1000" alt="Page d'accueil de Vista : « Tu joues. Je démarche. » sur une photo d'un joueur de volley en pleine attaque"></div>
           <figcaption>Page d'accueil : 6 mois, gratuits, rien à signer.</figcaption>
@@ -260,7 +270,7 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
       </article>
 
       <!-- VB DATABOX -->
-      <article class="project" id="vbdatabox">
+      <article class="project reveal" id="vbdatabox">
         <figure class="shot">
           <div class="frame"><img src="{{IMG_VB}}" width="800" height="1780" alt="Fiche d'un joueur sur VB Databox : rang à son poste, six barres de centiles du rouge au vert, puis un graphique en polygone qui compare deux réceptionneurs-attaquants de Ligue A masculine"></div>
           <figcaption>Fiche d'un réceptionneur-attaquant de Ligue A masculine (2025-26), comparé à un autre joueur : barres de centiles et polygone.</figcaption>
@@ -274,7 +284,7 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
           <dl class="fiche">
             <div class="row"><dt>Rôle</dt><dd>L'idée, la collecte des données (scraping), le calcul des centiles, le site</dd></div>
             <div class="row"><dt>Outils</dt><dd>JavaScript, Chart.js, Netlify</dd></div>
-            <div class="row"><dt>Chiffres</dt><dd><strong>735</strong> fiches joueur-saison · <strong>3</strong> championnats · <strong>3</strong> saisons · <strong>145</strong> joueurs suivis sur plusieurs saisons</dd></div>
+            <div class="row"><dt>Chiffres</dt><dd><strong data-count="735">735</strong> fiches joueur-saison · <strong data-count="3">3</strong> championnats · <strong data-count="3">3</strong> saisons · <strong data-count="145">145</strong> joueurs suivis sur plusieurs saisons</dd></div>
             <div class="row"><dt>Périmètre</dt><dd>Ligue A masculine, Ligue A féminine et Bundesliga masculine, saisons 2023-24 à 2025-26. Joueurs ayant joué au moins 40 sets, et 100 réceptions pour les liberos.</dd></div>
             <div class="row"><dt>Où ça en est</dt><dd>Le site est en ligne et je continue de l'améliorer : il est passé d'une saison à trois, et d'une fiche à un classement.</dd></div>
             <div class="row"><dt>Limite</dt><dd>Aucune donnée de passe n'est publiée : les passeurs ne sont mesurés que sur le contre et le service, sans classement. La saison 2026-27 n'est pas incluse, et les tailles (Wikidata) ne couvrent qu'une partie des joueurs.</dd></div>
@@ -401,5 +411,35 @@ footer { padding-block: 1.5rem; border-top: 1px solid var(--line); font-family: 
       navigator.clipboard.writeText(value).then(done, fail);
     } catch (e) { fail(); }
   });
+})();
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  function countUp(root) {
+    root.querySelectorAll('[data-count]').forEach(function (n) {
+      var end = parseInt(n.getAttribute('data-count'), 10);
+      var t0 = null;
+      n.textContent = '0';
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / 1200, 1);
+        n.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+      countUp(e.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function (el) { io.observe(el); });
 })();
 </script>
